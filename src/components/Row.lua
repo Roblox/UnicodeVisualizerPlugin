@@ -31,7 +31,7 @@ local function Row(props)
         Offset = Roact.createElement(Label, {
             x = 1,
             style = 'LegendLeft',
-            text = string.format("%d", props.offset)
+            text = string.format("%d", props.offset),
         }),
         Byte = Roact.createElement(Label, {
             x = 2,

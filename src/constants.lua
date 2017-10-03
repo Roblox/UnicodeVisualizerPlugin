@@ -1,21 +1,14 @@
 return {
-	BLACK = Color3.new(0.1, 0.1, 0.1),
-	WHITE = Color3.new(0.95, 0.95, 0.95),
-
-	GRAY1 = Color3.new(0.87, 0.87, 0.87),
-	GRAY2 = Color3.new(0.7, 0.7, 0.7),
-	GRAY3 = Color3.new(0.5, 0.5, 0.5),
-
-	HIGHLIGHT1 = Color3.fromRGB(100, 153, 239),
-
     MARGIN = 7,
     PAD = 5,
     HALFPAD = 2,
     BYTE = 30,
     CODEPOINT = 100,
-    ROW = 20,
+    ROW = 22,
     XOFF = 32,
     YOFF = 16,
+    DEFAULT_WINDOW_SIZE = Vector2.new(400, 300),
+    MIN_WINDOW_SIZE = Vector2.new(400, 200),
 
     UTF1BYTE = Color3.fromRGB(180, 255, 180),
     UTF2BYTE = Color3.fromRGB(127, 255, 127),
@@ -23,6 +16,32 @@ return {
     UTF4BYTE = Color3.fromRGB(96, 160, 255),
     UTFCONT = Color3.fromRGB(255, 255, 255),
     INVALID = Color3.fromRGB(255, 0, 0),
+
+    InfoBox = {
+        headingSizes = {
+            36,
+            24,
+            22,
+            20,
+            20,
+        },
+        headingFonts = {
+            Enum.Font.SourceSansBold,
+            Enum.Font.SourceSansBold,
+            Enum.Font.SourceSansBold,
+            Enum.Font.SourceSans,
+            Enum.Font.SourceSansItalic,
+        },
+        bullets = {
+            '•',
+            '◦',
+            '‣',
+        },
+        
+        textColor = Color3.fromRGB(255, 255, 255),
+        textSize = 20,
+        textFont = Enum.Font.SourceSans,
+    },
 
     styles = {
         LegendTop = {
@@ -39,8 +58,13 @@ return {
             TextColor3 = Color3.fromRGB(255, 255, 255),
             TextSize = 14,
         },
-        Byte = {},
-        Codepoint = {},
+        Byte = {
+            Font = Enum.Font.Code,
+        },
+        Codepoint = {
+            Font = Enum.Font.Code,
+            TextXAlignment = Enum.TextXAlignment.Left,
+        },
         Grapheme = {
             BackgroundTransparency = 0.3,
             MaxTextSize = 36,

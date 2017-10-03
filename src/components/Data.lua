@@ -38,6 +38,11 @@ local function Data(props)
             text = string.format("U+%04X %s", code, char),
             style = 'Codepoint',
             ZIndex = 2,
+            selectable = {
+                type = "codepoint",
+                id = p,
+                code = code,
+            }
         })
     end
 
@@ -56,8 +61,7 @@ local function Data(props)
     return Roact.createElement("ScrollingFrame", {
         BackgroundColor3 = Color3.fromRGB(80, 80, 80),
         BorderSizePixel = 0,
-        Position = UDim2.new(0, 0, 0, 50),
-        Size = UDim2.new(1, -400, 1, -50),
+        Size = props.Size,
         CanvasSize = UDim2.new(0, 0, 0, (#str + 1) * (constants.ROW + constants.PAD) + 2 * constants.MARGIN),
         VerticalScrollBarInset = Enum.ScrollBarInset.Always,
     }, children)
