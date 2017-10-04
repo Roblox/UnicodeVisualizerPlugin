@@ -4,6 +4,7 @@ local selected = require(script.Parent.selected)
 local fullscreen = require(script.Parent.fullscreen)
 local windowPos = require(script.Parent.windowPos)
 local windowSize = require(script.Parent.windowSize)
+local tooltip = require(script.Parent.tooltip)
 
 return function(state, action)
     state = state or {}
@@ -15,5 +16,6 @@ return function(state, action)
         fullscreen = fullscreen(state.fullscreen, action),
         windowPos = windowPos(state.windowPos, action),
         windowSize = windowSize(state.windowSize, action),
+        tooltip = tooltip(state.tooltip, action),
     }
 end

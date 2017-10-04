@@ -33,6 +33,7 @@ local function InfoPage(props)
                 Text = node.text,
                 TextSize = style.headingSizes[node.heading or 1],
                 TextColor3 = style.textColor,
+                TextWrapped = true,
                 Size = UDim2.new(1, 0, 0, h),
             })
         elseif node.type == 'Paragraph' then
@@ -61,6 +62,53 @@ local function InfoPage(props)
                 Font = style.textFont,
                 Size = UDim2.new(1, 0, 0, h),
             })
+        elseif node.type == 'Table' then
+            h = #node.rows * 20
+            local children = {}
+            children.UITableLayout = Roact.createElement("UITableLayout", {
+                SortOrder = Enum.SortOrder.LayoutOrder,
+                FillEmptySpaceColumns = true,
+                FillEmptySpaceRows = true,
+                Padding = UDim2.new(0, 1, 0, 1),
+            })
+            children.UIPadding = Roact.createElement("UIPadding", {
+                PaddingLeft = UDim.new(0, style.tableInset),
+                PaddingRight = UDim.new(0, style.tableInset),
+            })
+            for y = 1, #node.rows do
+                local row = node.rows[y]
+                local rowChildren = {}
+                for x = 1, #row do
+                    local TextService = game:GetService("TextService")
+                    local bounds = TextService:GetTextSize(tostring(row[x]), style.textSize, style.textFont, Vector2.new(400, 400))
+                    rowChildren[x] = Roact.createElement("TextLabel", {
+                        LayoutOrder = x,
+                        Size = UDim2.new(0, 30, 0, 20),
+                        BackgroundColor3 = Color3.fromRGB(60, 60, 60),
+                        BorderColor3 = Color3.fromRGB(127, 127, 127),
+                        Text = tostring(row[x]),
+                        TextSize = style.textSize,
+                        Font = style.textFont,
+                        TextColor3 = style.textColor,
+                    }, {
+                        UISizeConstraint = Roact.createElement("UISizeConstraint", {
+                            MaxSize = bounds + Vector2.new(style.tablePad, style.tablePad) * 2,
+                        })
+                    })
+                end
+                children[#children+1] = Roact.createElement("Frame", {
+                    LayoutOrder = y,
+                    BackgroundTransparency = 1.0,
+                }, rowChildren)
+            end
+
+            inst = Roact.createElement("Frame", {
+                LayoutOrder = i,
+                Size = UDim2.new(1, 0, 0, h),
+                BackgroundTransparency = 1.0,
+            }, children)
+        else
+            error(string.format("Unknown markup node %s", tostring(node.type)))
         end
         children[#children + 1] = inst
         height = height + h

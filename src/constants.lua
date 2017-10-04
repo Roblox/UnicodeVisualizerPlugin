@@ -41,6 +41,8 @@ return {
         textColor = Color3.fromRGB(255, 255, 255),
         textSize = 20,
         textFont = Enum.Font.SourceSans,
+        tablePad = 8,
+        tableInset = 16,
     },
 
     styles = {

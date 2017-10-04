@@ -7,18 +7,25 @@ local Label = require(Modules.components.Label)
 local function Row(props)
     local byte = props.byte
     local color
+    local tooltip
     if byte <= 0x7f then
         color = constants.UTF1BYTE
+        tooltip = "Single-byte sequence"
     elseif byte <= 0xBF then
         color = constants.UTFCONT
+        tooltip = "Continuation byte"
     elseif byte <= 0xDF then
         color = constants.UTF2BYTE
+        tooltip = "2-byte sequence start"
     elseif byte <= 0xEF then
         color = constants.UTF3BYTE
+        tooltip = "3-byte sequence start"
     elseif byte <= 0xF7 then
         color = constants.UTF4BYTE
+        tooltip = "4-byte sequence start"
     else
         color = constants.INVALID
+        tooltip = "Invalid UTF-8"
     end
 
 	return Roact.createElement("Frame", {
@@ -38,6 +45,7 @@ local function Row(props)
             style = 'Byte',
             text = string.format("%02X", props.byte),
             BackgroundColor3 = color,
+            tooltip = tooltip,
         })
     })
 end

@@ -4,12 +4,16 @@ local Roact = require(Modules.Common.Roact)
 local RoactRodux = require(Modules.Common.RoactRodux)
 local constants = require(Modules.constants)
 local select = require(Modules.actions.select)
+local setTooltip = require(Modules.actions.setTooltip)
 
 local Label = Roact.Component:extend("Label")
 
 function Label:render()
     local props = self.props
     local style = constants.styles[props.style] or error("Style does not exist: "..tostring(props.style))
+
+    local selected = props.selectable and props.selected and props.selectable.type == props.selected.type and props.selectable.id == props.selected.id
+    local selectedColor = Color3.fromRGB(200, 200, 200)
 
     local sizes = {
         constants.XOFF,
@@ -35,10 +39,10 @@ function Label:render()
         TextScaled = true,
         TextXAlignment = style.TextXAlignment or Enum.TextXAlignment.Center,
         TextYAlignment = style.TextYAlignment or Enum.TextYAlignment.Center,
-        BackgroundColor3 = props.BackgroundColor3 or style.BackgroundColor3 or Color3.fromRGB(255, 255, 255),
+        BackgroundColor3 = selected and selectedColor or props.BackgroundColor3 or style.BackgroundColor3 or Color3.fromRGB(255, 255, 255),
         BackgroundTransparency = style.BackgroundTransparency or 0.15,
         BorderColor3 = Color3.fromRGB(0, 0, 0),
-        BorderSizePixel = self.state.hover and 3 or 1,
+        BorderSizePixel = (selected or self.state.hover) and 3 or 1,
         ZIndex = props.ZIndex,
         AutoButtonColor = props.selectable and false or not props.selectable and nil,
 
@@ -51,15 +55,21 @@ function Label:render()
             UDim.new(0, constants.ROW * (props.h or 1) + math.max(0, constants.PAD * ((props.h or 1) - 1)))
         ),
 
-        [Roact.Event.MouseEnter] = props.selectable and function(rbx)
-            self:setState({
-                hover = true,
-            })
+        [Roact.Event.MouseEnter] = (props.selectable or props.tooltip) and function(rbx)
+            if props.selectable then
+                self:setState({
+                    hover = true,
+                })
+            end
+            props.setTooltip(props.tooltip)
         end or nil,
-        [Roact.Event.MouseLeave] = props.selectable and function(rbx)
-            self:setState({
-                hover = false,
-            })
+        [Roact.Event.MouseLeave] = (props.selectable or props.tooltip) and function(rbx)
+            if props.selectable then
+                self:setState({
+                    hover = false,
+                })
+            end
+            props.setTooltip(nil)
         end or nil,
         [Roact.Event.MouseButton1Click] = props.selectable and function(rbx)
             props.select(props.selectable)
@@ -82,8 +92,12 @@ Label = RoactRodux.connect(function(store)
 	local state = store:GetState()
 
 	return {
+        selected = state.selected,
         select = function(selectable)
             store:Dispatch(select(selectable))
+        end,
+        setTooltip = function(tooltip)
+            store:Dispatch(setTooltip(tooltip))
         end,
 	}
 end)(Label)

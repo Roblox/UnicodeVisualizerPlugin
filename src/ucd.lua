@@ -12,28 +12,58 @@ function UCD.new(name)
     self.properties = {}
 
     local lineno = 1
-    for line in self.file:gmatch("([^\r\n]*)\n?") do
-        line = line:match("^([^#]+)") or ""
-        if #line > 0 then
-            local specifier, property = line:match("^(.+);(.+)$")
-            specifier = (specifier or ""):match("^%s*(.-)%s*$")
-            property = (property or ""):match("^%s*(.-)%s*$")
-            local first, last = specifier:match("^(%x+)%.%.(%x+)$")
-            first = first or specifier:match("^(%x+)$")
-            last = last or first
-            if not first then
-                error(string.format("[%s:%i] Syntax error: `%s`", name, lineno, line))
+    local chunks = type(self.file) == 'table' and self.file or { self.file }
+    for i = 1, #chunks do
+        local chunk = chunks[i]
+        for line in chunk:gmatch("([^\r\n]*)\n?") do
+            line = line:match("^([^#]+)") or ""
+            if #line > 0 then
+                if false then
+                    local specifier, property = line:match("^(.+);(.+)$")
+                    specifier = (specifier or ""):match("^%s*(.-)%s*$")
+                    property = (property or ""):match("^%s*(.-)%s*$")
+                    local first, last = specifier:match("^(%x+)%.%.(%x+)$")
+                    first = first or specifier:match("^(%x+)$")
+                    last = last or first
+                    if not first then
+                        error(string.format("[%s:%i] Syntax error: `%s`", name, lineno, line))
+                    end
+                    first = tonumber(first, 16)
+                    last = tonumber(last or first, 16)
+                    local data = self.properties[property] or {}
+                    self.properties[property] = data
+                    data[#data+1] = {
+                        first = first,
+                        last = last,
+                    }
+                else
+                    local columns = {}
+                    for col in (line..';'):gmatch("([^;]*);") do
+                        col = col:match("^%s*(.-)%s*$")
+                        columns[#columns+1] = col
+                    end
+                    local specifier = columns[1]
+                    local property = #columns == 2 and columns[2] or "Default"
+                    local first, last = specifier:match("^(%x+)%.%.(%x+)$")
+                    first = first or specifier:match("^(%x+)$")
+                    last = last or first
+                    if not first then
+                        error(string.format("[%s:%i] Syntax error: `%s`", name, lineno, line))
+                    end
+                    first = tonumber(first, 16)
+                    last = tonumber(last or first, 16)
+                    local data = self.properties[property] or {}
+                    self.properties[property] = data
+                    table.remove(columns, 1)
+                    data[#data+1] = {
+                        first = first,
+                        last = last,
+                        data = columns,
+                    }
+                end
             end
-            first = tonumber(first, 16)
-            last = tonumber(last or first, 16)
-            local data = self.properties[property] or {}
-            self.properties[property] = data
-            data[#data+1] = {
-                first = first,
-                last = last,
-            }
+            lineno = lineno + 1
         end
-        lineno = lineno + 1
     end
 
     for prop,data in pairs(self.properties) do
@@ -48,6 +78,7 @@ end
 function UCD:Lookup(code)
     assert(type(code) == 'number')
     local props = {}
+    local datas = {}
     for prop,data in pairs(self.properties) do
         local min = 1
         local max = #data
@@ -61,9 +92,10 @@ function UCD:Lookup(code)
         end
         if data[min].first <= code and data[min].last >= code then
             props[#props+1] = prop
+            datas[#datas+1] = data[min].data
         end
     end
-    return props
+    return props, datas
 end
 
 return UCD

@@ -6,6 +6,7 @@ local Roact = require(Common.Roact)
 local RoactRodux = require(Common.RoactRodux)
 
 local MainFrame = require(Modules.components.MainFrame)
+local Tooltip = require(Modules.components.Tooltip)
 
 local function App(props)
 	local enabled = props.enabled
@@ -13,6 +14,7 @@ local function App(props)
 	if enabled then
 		return Roact.createElement("ScreenGui", nil, {
 			Main = Roact.createElement(MainFrame),
+			Tooltip = Roact.createElement(Tooltip),
 		})
 	else
 		return nil
