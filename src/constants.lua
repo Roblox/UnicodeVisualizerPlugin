@@ -17,6 +17,14 @@ return {
     UTFCONT = Color3.fromRGB(255, 255, 255),
     INVALID = Color3.fromRGB(255, 0, 0),
 
+    Examples = {
+        "헤이 (hey) 👩🏻‍💻",
+        "👨‍👩‍👧‍👦",
+        "(╯°□°）╯︵ ┻━┻)",
+        "🇺🇸 🇷🇺 🇦🇫🇦🇲🇸",
+        "パーティーへ行かないか",
+    },
+
     InfoBox = {
         headingSizes = {
             36,

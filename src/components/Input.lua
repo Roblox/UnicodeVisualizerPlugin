@@ -25,6 +25,18 @@ local function Input(props)
                 props.textChanged(rbx.Text)
             end
         end,
+
+        [Roact.Event.FocusLost] = function(rbx, enterPressed)
+            if enterPressed then
+                props.textChanged(rbx.Text, true)
+            end
+        end,
+
+        [Roact.Event.InputBegan] = function(rbx, input)
+            if input.UserInputType == Enum.UserInputType.MouseButton2 then
+                props.textChanged("")
+            end
+        end,
     })
 end
 
@@ -33,8 +45,8 @@ Input = RoactRodux.connect(function(store)
 
 	return {
 		text = state.text,
-        textChanged = function(text)
-            store:Dispatch(setText(text))
+        textChanged = function(text, confirm)
+            store:Dispatch(setText(text, confirm))
         end
 	}
 end)(Input)

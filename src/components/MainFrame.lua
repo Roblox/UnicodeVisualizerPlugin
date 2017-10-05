@@ -11,6 +11,7 @@ local setWindowSize = require(Modules.actions.setWindowSize)
 local Input = require(Modules.components.Input)
 local Data = require(Modules.components.Data)
 local Info = require(Modules.components.Info)
+local PickerMenu = require(Modules.components.PickerMenu)
 
 local function MainFrame(props)
 	local fullscreen = props.fullscreen
@@ -45,17 +46,7 @@ local function MainFrame(props)
 				props.toggleFullscreen()
 			end,
 		}),
-		Picker = Roact.createElement("ImageButton", {
-			AnchorPoint = Vector2.new(1, 0),
-			BackgroundTransparency = 1.0,
-			Position = UDim2.new(1, -50, 0, 6),
-			Size = UDim2.new(0, 16, 0, 16),
-			ZIndex = 3,
-			Image = "http://www.roblox.com/asset/?id=1083248618",
-
-			[Roact.Event.MouseButton1Click] = function(rbx)
-			end,
-		}),
+		Picker = Roact.createElement(PickerMenu),
 		Resize = Roact.createElement("ImageButton", {
 			AnchorPoint = Vector2.new(1, 1),
 			BackgroundTransparency = 1.0,
