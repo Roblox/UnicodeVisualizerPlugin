@@ -43,17 +43,6 @@ return function(plugin)
 
 	local instance = Roact.reify(element, CoreGui, "UnicodeVisualizer")
 
-	local teardownButton = plugin:button(
-		toolbar,
-		"Teardown Test GUI",
-		"",
-		""
-	)
-
-	local connection2 = teardownButton.Click:Connect(function()
-		Roact.teardown(instance)
-	end)
-
 	plugin:beforeUnload(function()
 		local save = ReplicatedStorage:FindFirstChild("StoreState")
 		if not save then
@@ -63,7 +52,6 @@ return function(plugin)
 		end
 		save.Value = HttpService:JSONEncode(store:GetState())
 		connection:Disconnect()
-		connection2:Disconnect()
 		Roact.teardown(instance)
 	end)
 end

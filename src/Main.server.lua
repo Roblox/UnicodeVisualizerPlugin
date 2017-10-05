@@ -123,13 +123,16 @@ end
 PluginFacade:_load()
 PluginFacade:_watch(source)
 
-local toolbar = PluginFacade:toolbar("Plugin Facade Debugger")
+-- development
+if false then
+	local toolbar = PluginFacade:toolbar("Plugin Facade Debugger")
 
-local button = PluginFacade:button(toolbar, "Reload", "Reload the Plugin Facade Debugger", "")
+	local button = PluginFacade:button(toolbar, "Reload", "Reload the Plugin Facade Debugger", "")
 
-button.Click:Connect(function()
-	spawn(function()
-		print("Reloading manually...")
-		PluginFacade:_reload()
+	button.Click:Connect(function()
+		spawn(function()
+			print("Reloading manually...")
+			PluginFacade:_reload()
+		end)
 	end)
-end)
+end
