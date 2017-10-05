@@ -147,9 +147,9 @@ MainFrame = RoactRodux.connect(function(store)
 		fullscreen = state.fullscreen,
 		windowPos = state.windowPos,
 		windowSize = state.windowSize,
-        close = function()
-            store:Dispatch(toggleEnabled())
-        end,
+		close = function()
+			store:Dispatch(toggleEnabled())
+		end,
 		toggleFullscreen = function()
 			store:Dispatch(toggleFullscreen())
 		end,

@@ -17,9 +17,9 @@ return function(plugin)
 
 	local toggleButton = plugin:button(
 		toolbar,
-        "Visualizer",
-        "View the details of any Unicode string",
-        "rbxassetid://1062292973"
+		"Visualizer",
+		"View the details of any Unicode string",
+		"rbxassetid://1062292973"
 	)
 
 	local initialState do

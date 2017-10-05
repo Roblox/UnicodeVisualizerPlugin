@@ -1,11 +1,11 @@
 local select = require(script.Parent.Parent.actions.select)
 
 return function(state, action)
-    state = state or nil
+	state = state or nil
 
-    if action.type == select.name then
-        return action.what
-    end
+	if action.type == select.name then
+		return action.what
+	end
 
-    return state
+	return state
 end
