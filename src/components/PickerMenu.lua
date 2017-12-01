@@ -1,9 +1,7 @@
 local Modules = script.Parent.Parent
 
-local Common = Modules.Common
-
-local Roact = require(Common.Roact)
-local RoactRodux = require(Common.RoactRodux)
+local Roact = require(Modules.Roact)
+local RoactRodux = require(Modules.RoactRodux)
 local setText = require(Modules.actions.setText)
 local constants = require(Modules.constants)
 
@@ -119,12 +117,12 @@ function PickerMenu:init()
 end
 
 PickerMenu = RoactRodux.connect(function(store)
-	local state = store:GetState()
+	local state = store:getState()
 
 	return {
 		recentlyUsed = state.recentlyUsed,
 		setText = function(text)
-			store:Dispatch(setText(text))
+			store:dispatch(setText(text))
 		end,
 	}
 end)(PickerMenu)

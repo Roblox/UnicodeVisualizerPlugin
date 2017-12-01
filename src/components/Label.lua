@@ -1,7 +1,7 @@
 local Modules = script.Parent.Parent
 
-local Roact = require(Modules.Common.Roact)
-local RoactRodux = require(Modules.Common.RoactRodux)
+local Roact = require(Modules.Roact)
+local RoactRodux = require(Modules.RoactRodux)
 local constants = require(Modules.constants)
 local select = require(Modules.actions.select)
 local setTooltip = require(Modules.actions.setTooltip)
@@ -89,15 +89,15 @@ function Label:init()
 end
 
 Label = RoactRodux.connect(function(store)
-	local state = store:GetState()
+	local state = store:getState()
 
 	return {
 		selected = state.selected,
 		select = function(selectable)
-			store:Dispatch(select(selectable))
+			store:dispatch(select(selectable))
 		end,
 		setTooltip = function(tooltip)
-			store:Dispatch(setTooltip(tooltip))
+			store:dispatch(setTooltip(tooltip))
 		end,
 	}
 end)(Label)

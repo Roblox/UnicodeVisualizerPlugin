@@ -1,0 +1,22 @@
+{
+	"name": "UnicodeVisualizerPlugin",
+	"servePort": 8000,
+	"partitions": {
+		"plugin": {
+			"path": "src",
+			"target": "ReplicatedStorage.GraphemeVisualizer"
+		},
+		"rodux": {
+			"path": "Rodux/lib",
+			"target": "ReplicatedStorage.GraphemeVisualizer.Rodux"
+		},
+		"roact": {
+			"path": "Roact/lib",
+			"target": "ReplicatedStorage.GraphemeVisualizer.Roact"
+		},
+		"roactrodux": {
+			"path": "RoactRodux/lib",
+			"target": "ReplicatedStorage.GraphemeVisualizer.RoactRodux"
+		}
+	}
+}

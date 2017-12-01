@@ -1,9 +1,7 @@
 local Modules = script.Parent.Parent
 
-local Common = Modules.Common
-
-local Roact = require(Common.Roact)
-local RoactRodux = require(Common.RoactRodux)
+local Roact = require(Modules.Roact)
+local RoactRodux = require(Modules.RoactRodux)
 
 local MainFrame = require(Modules.components.MainFrame)
 local Tooltip = require(Modules.components.Tooltip)
@@ -22,7 +20,7 @@ local function App(props)
 end
 
 App = RoactRodux.connect(function(store)
-	local state = store:GetState()
+	local state = store:getState()
 
 	return {
 		enabled = state.enabled,

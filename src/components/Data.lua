@@ -1,7 +1,7 @@
 local Modules = script.Parent.Parent
 
-local Roact = require(Modules.Common.Roact)
-local RoactRodux = require(Modules.Common.RoactRodux)
+local Roact = require(Modules.Roact)
+local RoactRodux = require(Modules.RoactRodux)
 
 local constants = require(Modules.constants)
 local Label = require(Modules.components.Label)
@@ -68,7 +68,7 @@ local function Data(props)
 end
 
 Data = RoactRodux.connect(function(store)
-	local state = store:GetState()
+	local state = store:getState()
 
 	return {
 		text = state.text,

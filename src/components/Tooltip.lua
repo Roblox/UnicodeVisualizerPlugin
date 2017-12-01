@@ -1,9 +1,7 @@
 local Modules = script.Parent.Parent
 
-local Common = Modules.Common
-
-local Roact = require(Common.Roact)
-local RoactRodux = require(Common.RoactRodux)
+local Roact = require(Modules.Roact)
+local RoactRodux = require(Modules.RoactRodux)
 
 local Tooltip = Roact.Component:extend("Tooltip")
 
@@ -57,7 +55,7 @@ function Tooltip:willUnmount()
 end
 
 Tooltip = RoactRodux.connect(function(store)
-	local state = store:GetState()
+	local state = store:getState()
 
 	return {
 		tooltip = state.tooltip,

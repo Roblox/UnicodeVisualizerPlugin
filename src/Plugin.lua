@@ -3,11 +3,11 @@ return function(plugin)
 	local ReplicatedStorage = game:GetService("ReplicatedStorage")
 	local HttpService = game:GetService("HttpService")
 
-	local Common = script.Parent.Common
+	local Modules = script.Parent
 
-	local Roact = require(Common.Roact)
-	local Rodux = require(Common.Rodux)
-	local RoactRodux = require(Common.RoactRodux)
+	local Roact = require(Modules.Roact)
+	local Rodux = require(Modules.Rodux)
+	local RoactRodux = require(Modules.RoactRodux)
 
 	local App = require(script.Parent.components.App)
 	local reducer = require(script.Parent.reducers.root)
@@ -32,7 +32,7 @@ return function(plugin)
 	local store = Rodux.Store.new(reducer, initialState)
 
 	local connection = toggleButton.Click:Connect(function()
-		store:Dispatch(toggleEnabled())
+		store:dispatch(toggleEnabled())
 	end)
 
 	local element = Roact.createElement(RoactRodux.StoreProvider, {
@@ -50,7 +50,7 @@ return function(plugin)
 			save.Name = "StoreState"
 			save.Parent = ReplicatedStorage
 		end
-		save.Value = HttpService:JSONEncode(store:GetState())
+		save.Value = HttpService:JSONEncode(store:getState())
 		connection:Disconnect()
 		Roact.teardown(instance)
 	end)

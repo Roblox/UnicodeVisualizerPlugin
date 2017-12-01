@@ -1,7 +1,7 @@
 local Modules = script.Parent.Parent
 
-local Roact = require(Modules.Common.Roact)
-local RoactRodux = require(Modules.Common.RoactRodux)
+local Roact = require(Modules.Roact)
+local RoactRodux = require(Modules.RoactRodux)
 
 local constants = require(Modules.constants)
 local toggleEnabled = require(Modules.actions.toggleEnabled)
@@ -140,7 +140,7 @@ local function MainFrame(props)
 end
 
 MainFrame = RoactRodux.connect(function(store)
-	local state = store:GetState()
+	local state = store:getState()
 
 	return {
 		selected = state.selected,
@@ -148,16 +148,16 @@ MainFrame = RoactRodux.connect(function(store)
 		windowPos = state.windowPos,
 		windowSize = state.windowSize,
 		close = function()
-			store:Dispatch(toggleEnabled())
+			store:dispatch(toggleEnabled())
 		end,
 		toggleFullscreen = function()
-			store:Dispatch(toggleFullscreen())
+			store:dispatch(toggleFullscreen())
 		end,
 		setWindowPos = function(pos)
-			store:Dispatch(setWindowPos(pos))
+			store:dispatch(setWindowPos(pos))
 		end,
 		setWindowSize = function(size)
-			store:Dispatch(setWindowSize(size))
+			store:dispatch(setWindowSize(size))
 		end,
 	}
 end)(MainFrame)

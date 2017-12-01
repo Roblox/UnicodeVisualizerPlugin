@@ -1,7 +1,7 @@
 local Modules = script.Parent.Parent
 
-local Roact = require(Modules.Common.Roact)
-local RoactRodux = require(Modules.Common.RoactRodux)
+local Roact = require(Modules.Roact)
+local RoactRodux = require(Modules.RoactRodux)
 local setText = require(Modules.actions.setText)
 
 local constants = require(Modules.constants)
@@ -41,12 +41,12 @@ local function Input(props)
 end
 
 Input = RoactRodux.connect(function(store)
-	local state = store:GetState()
+	local state = store:getState()
 
 	return {
 		text = state.text,
 		textChanged = function(text, confirm)
-			store:Dispatch(setText(text, confirm))
+			store:dispatch(setText(text, confirm))
 		end
 	}
 end)(Input)

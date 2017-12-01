@@ -1,6 +1,6 @@
 local Modules = script.Parent.Parent
 
-local Roact = require(Modules.Common.Roact)
+local Roact = require(Modules.Roact)
 local constants = require(Modules.constants)
 local Label = require(Modules.components.Label)
 
