@@ -75,6 +75,11 @@ return {
 			Font = Enum.Font.Code,
 			TextXAlignment = Enum.TextXAlignment.Left,
 		},
+		CodepointError = {
+			Font = Enum.Font.Code,
+			TextXAlignment = Enum.TextXAlignment.Left,
+			BackgroundCOlor3 = Color3.fromRGB(255, 127, 127),
+		},
 		Grapheme = {
 			BackgroundTransparency = 0.3,
 			MaxTextSize = 36,

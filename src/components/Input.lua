@@ -7,9 +7,10 @@ local setText = require(Modules.actions.setText)
 local constants = require(Modules.constants)
 
 local function Input(props)
+	local len = utf8.len(props.text)
 	return Roact.createElement("TextBox", {
 		LayoutOrder = 0,
-		BackgroundColor3 = Color3.fromRGB(255, 255, 255),
+		BackgroundColor3 = len and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(255, 127, 127),
 		BorderColor3 = Color3.fromRGB(27, 42, 53),
 		BorderSizePixel = 0,
 		Size = UDim2.new(1, 0, 0, 50),
