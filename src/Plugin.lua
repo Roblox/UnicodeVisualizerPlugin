@@ -20,7 +20,7 @@ return function(plugin, initialState)
 		"rbxassetid://1062292973"
 	)
 
-	local pluginGui = plugin:createDockWidgetPluginGui("UnicodeVisualizer", DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Float, false, false, 800, 600, 400, 200))
+	local pluginGui = plugin:createDockWidgetPluginGui("UnicodeVisualizer", DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Float, false, false, 800, 600, 500, 200))
 	pluginGui.Name = "UnicodeVisualizer"
 	pluginGui.Title = "Unicode Visualizer"
 	pluginGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling

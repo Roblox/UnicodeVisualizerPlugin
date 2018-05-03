@@ -1,3 +1,5 @@
+local TextService = game:GetService("TextService")
+
 local Modules = script.Parent.Parent
 
 local Roact = require(Modules.Roact)
@@ -8,13 +10,17 @@ local constants = require(Modules.constants)
 
 local function InfoPage(props)
 	local children = {}
-	children[1] = Roact.createElement("UIListLayout", {
+	children.UIListLayout = Roact.createElement("UIListLayout", {
 		SortOrder = Enum.SortOrder.LayoutOrder,
 	})
-	children[2] = Roact.createElement("UIPadding", {
+	children.UIPadding = Roact.createElement("UIPadding", {
 		PaddingLeft = UDim.new(0, 5),
 		PaddingTop = UDim.new(0, 5),
 	})
+
+	-- padding etc
+	local textWidth = constants.PANEL_WIDTH - 5
+	local textFrame = Vector2.new(textWidth, 10000)
 
 	local style = constants.InfoBox
 
@@ -24,43 +30,61 @@ local function InfoPage(props)
 		local inst
 		local h = 0
 		if node.type == 'Header' then
-			h = style.headingSizes[node.heading or 1] + 16
+			local size = style.headingSizes[node.heading or 1]
+			local text = node.text
+			local font = style.headingFonts[node.heading or 1]
+			local bounds = TextService:GetTextSize(text, size, font, textFrame)
+			h = bounds.y + 16
 			inst = Roact.createElement("TextLabel", {
 				LayoutOrder = i,
+				Size = UDim2.new(1, 0, 0, h),
+
+				Text = text,
+				Font = font,
+				TextSize = size,
+
+				TextWrapped = true,
 				BackgroundTransparency = 1.0,
 				TextXAlignment = Enum.TextXAlignment.Left,
-				Font = style.headingFonts[node.heading or 1],
-				Text = node.text,
-				TextSize = style.headingSizes[node.heading or 1],
 				TextColor3 = style.textColor,
-				TextWrapped = true,
-				Size = UDim2.new(1, 0, 0, h),
 			})
 		elseif node.type == 'Paragraph' then
-			h = style.textSize
+			local size = style.textSize
+			local text = string.format("\t%s", node.text)
+			local font = style.textFont
+			local bounds = TextService:GetTextSize(text, size, font, textFrame)
+			h = bounds.y
 			inst = Roact.createElement("TextLabel", {
 				LayoutOrder = i,
+				Size = UDim2.new(1, 0, 0, h),
+
+				Text = text,
+				TextSize = size,
+				Font = font,
+
+				TextWrapped = true,
 				BackgroundTransparency = 1.0,
 				TextXAlignment = Enum.TextXAlignment.Left,
-				Text = string.format("\t%s", node.text),
-				TextSize = style.textSize,
 				TextColor3 = style.textColor,
-				Font = style.textFont,
-				Size = UDim2.new(1, 0, 0, h),
-				TextWrapped = true,
 			})
 		elseif node.type == 'ListItem' then
-			h = style.textSize
+			local text = ('\t'):rep(node.indent or 1) .. style.bullets[node.indent or 1] .. ' ' .. node.text
+			local size = style.textSize
+			local font = style.textFont
+			local bounds = TextService:GetTextSize(text, size, font, textFrame)
+			h = bounds.y
 			inst = Roact.createElement("TextLabel", {
 				LayoutOrder = i,
+				Size = UDim2.new(1, 0, 0, h),
+
+				Text = text,
+				TextSize = size,
+				Font = font,
+
+				TextWrapped = true,
 				BackgroundTransparency = 1.0,
 				TextXAlignment = Enum.TextXAlignment.Left,
-				Text = ('\t'):rep(node.indent or 1) .. style.bullets[node.indent or 1] .. ' ' .. node.text,
-				TextWrapped = true,
-				TextSize = style.textSize,
 				TextColor3 = style.textColor,
-				Font = style.textFont,
-				Size = UDim2.new(1, 0, 0, h),
 			})
 		elseif node.type == 'Table' then
 			h = #node.rows * 20
@@ -79,7 +103,6 @@ local function InfoPage(props)
 				local row = node.rows[y]
 				local rowChildren = {}
 				for x = 1, #row do
-					local TextService = game:GetService("TextService")
 					local bounds = TextService:GetTextSize(tostring(row[x]), style.textSize, style.textFont, Vector2.new(400, 400))
 					rowChildren[x] = Roact.createElement("TextLabel", {
 						LayoutOrder = x,
@@ -110,14 +133,14 @@ local function InfoPage(props)
 		else
 			error(string.format("Unknown markup node %s", tostring(node.type)))
 		end
-		children[#children + 1] = inst
+		children[node.type .. i] = inst
 		height = height + h
 	end
 
 	return Roact.createElement("ScrollingFrame", {
 		BackgroundColor3 = Color3.fromRGB(40, 40, 40),
 		Size = props.Size,
-		CanvasSize = UDim2.new(0, 0, 0, height),
+		CanvasSize = UDim2.new(0, 0, 0, height + 10),
 		BorderSizePixel = 0,
 	}, children)
 end
