@@ -67,6 +67,18 @@ function PickerMenu:render()
 		})
 	end
 	children[#children+1] = Roact.createElement(Header, {
+		Text = "Selected Instances",
+		LayoutOrder = #children,
+		setText = setText,
+	})
+	for i = 1, #props.importStrings do
+		children[#children+1] = Roact.createElement(Entry, {
+			Text = props.importStrings[i],
+			LayoutOrder = #children,
+			setText = setText,
+		})
+	end
+	children[#children+1] = Roact.createElement(Header, {
 		Text = "Examples",
 		LayoutOrder = #children,
 		setText = setText,
@@ -101,7 +113,6 @@ function PickerMenu:render()
 			Visible = self.state.open,
 
 			[Roact.Event.MouseButton1Click] = function(rbx)
-				print("closed")
 				self:setState({
 					open = false
 				})
@@ -136,6 +147,7 @@ PickerMenu = RoactRodux.connect(function(store)
 
 	return {
 		recentlyUsed = state.recentlyUsed,
+		importStrings = state.importStrings,
 		setText = function(text)
 			store:dispatch(setText(text))
 		end,
