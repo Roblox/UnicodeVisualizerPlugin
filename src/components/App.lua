@@ -7,24 +7,10 @@ local MainFrame = require(Modules.components.MainFrame)
 local Tooltip = require(Modules.components.Tooltip)
 
 local function App(props)
-	local enabled = props.enabled
-
-	if enabled then
-		return Roact.createElement("ScreenGui", nil, {
-			Main = Roact.createElement(MainFrame),
-			Tooltip = Roact.createElement(Tooltip),
-		})
-	else
-		return nil
-	end
+	return Roact.createElement("Folder", nil, {
+		Main = Roact.createElement(MainFrame),
+		Tooltip = Roact.createElement(Tooltip),
+	})
 end
-
-App = RoactRodux.connect(function(store)
-	local state = store:getState()
-
-	return {
-		enabled = state.enabled,
-	}
-end)(App)
 
 return App

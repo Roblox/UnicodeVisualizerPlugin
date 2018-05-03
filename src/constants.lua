@@ -7,8 +7,7 @@ return {
 	ROW = 22,
 	XOFF = 32,
 	YOFF = 16,
-	DEFAULT_WINDOW_SIZE = Vector2.new(400, 300),
-	MIN_WINDOW_SIZE = Vector2.new(400, 200),
+	PANEL_WIDTH = 250,
 
 	UTF1BYTE = Color3.fromRGB(180, 255, 180),
 	UTF2BYTE = Color3.fromRGB(127, 255, 127),

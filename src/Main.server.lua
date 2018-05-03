@@ -11,6 +11,7 @@ script.Disabled = true
 
 local PluginFacade = {
 	_toolbars = {},
+	_pluginGuis = {},
 	_buttons = {},
 	_watching = {},
 	_beforeUnload = nil,
@@ -56,13 +57,27 @@ function PluginFacade:button(toolbar, name, tooltip, icon)
 end
 
 --[[
+	Wrapper around plugin:CreatePluginGui
+]]
+function PluginFacade:createDockWidgetPluginGui(name, ...)
+	if self._pluginGuis[name] then
+		return self._pluginGuis[name]
+	end
+
+	local gui = plugin:CreateDockWidgetPluginGui(name, ...)
+	self._pluginGuis[name] = gui
+
+	return gui
+end
+
+--[[
 	Sets the method to call the next time the system tries to reload
 ]]
 function PluginFacade:beforeUnload(callback)
 	self._beforeUnload = callback
 end
 
-function PluginFacade:_load()
+function PluginFacade:_load(savedState)
 	local ok, result = pcall(require, currentRoot.Plugin)
 
 	if not ok then
@@ -72,7 +87,7 @@ function PluginFacade:_load()
 
 	local Plugin = result
 
-	ok, result = pcall(Plugin, PluginFacade)
+	ok, result = pcall(Plugin, PluginFacade, savedState)
 
 	if not ok then
 		warn("Plugin failed to run: " .. result)
@@ -81,14 +96,15 @@ function PluginFacade:_load()
 end
 
 function PluginFacade:_reload()
+    local saveState
 	if self._beforeUnload then
-		self._beforeUnload()
+		saveState = self._beforeUnload()
 		self._beforeUnload = nil
 	end
 
 	currentRoot = source:Clone()
 
-	self:_load()
+	self:_load(saveState)
 end
 
 function PluginFacade:_watch(instance)
@@ -122,17 +138,3 @@ end
 
 PluginFacade:_load()
 PluginFacade:_watch(source)
-
--- development
-if false then
-	local toolbar = PluginFacade:toolbar("Plugin Facade Debugger")
-
-	local button = PluginFacade:button(toolbar, "Reload", "Reload the Plugin Facade Debugger", "")
-
-	button.Click:Connect(function()
-		spawn(function()
-			print("Reloading manually...")
-			PluginFacade:_reload()
-		end)
-	end)
-end

@@ -22,7 +22,6 @@ function Tooltip:render()
 			Size = UDim2.new(0, bounds.x + 16, 0, bounds.y + 16),
 			Position = UDim2.new(0, self.state.x + 16, 0, self.state.y),
 			BackgroundColor3 = Color3.fromRGB(255, 255, 240),
-			ZIndex = 10,
 		})
 	else
 		return nil

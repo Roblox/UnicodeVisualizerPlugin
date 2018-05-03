@@ -1,4 +1,4 @@
-return function(plugin)
+return function(plugin, initialState)
 	local CoreGui = game:GetService("CoreGui")
 	local ReplicatedStorage = game:GetService("ReplicatedStorage")
 	local HttpService = game:GetService("HttpService")
@@ -11,7 +11,6 @@ return function(plugin)
 
 	local App = require(script.Parent.components.App)
 	local reducer = require(script.Parent.reducers.root)
-	local toggleEnabled = require(script.Parent.actions.toggleEnabled)
 
 	local toolbar = plugin:toolbar("Unicode")
 
@@ -22,18 +21,12 @@ return function(plugin)
 		"rbxassetid://1062292973"
 	)
 
-	local initialState do
-		local save = ReplicatedStorage:FindFirstChild("StoreState")
-		if save then
-			initialState = HttpService:JSONDecode(save.Value)
-		end
-	end
+	local pluginGui = plugin:createDockWidgetPluginGui("UnicodeVisualizer", DockWidgetPluginGuiInfo.new(Enum.InitialDockState.Float, false, false, 800, 600, 400, 200))
+	pluginGui.Name = "UnicodeVisualizer"
+	pluginGui.Title = "Unicode Visualizer"
+	pluginGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
 	local store = Rodux.Store.new(reducer, initialState)
-
-	local connection = toggleButton.Click:Connect(function()
-		store:dispatch(toggleEnabled())
-	end)
 
 	local element = Roact.createElement(RoactRodux.StoreProvider, {
 		store = store,
@@ -41,17 +34,16 @@ return function(plugin)
 		App = Roact.createElement(App)
 	})
 
-	local instance = Roact.reify(element, CoreGui, "UnicodeVisualizer")
+	local connection = toggleButton.Click:Connect(function()
+		pluginGui.Enabled = not pluginGui.Enabled
+	end)
+
+	local instance = Roact.reify(element, pluginGui, "UnicodeVisualizer")
 
 	plugin:beforeUnload(function()
-		local save = ReplicatedStorage:FindFirstChild("StoreState")
-		if not save then
-			save = Instance.new("StringValue")
-			save.Name = "StoreState"
-			save.Parent = ReplicatedStorage
-		end
-		save.Value = HttpService:JSONEncode(store:getState())
+		local saveState = store:getState()
 		connection:Disconnect()
 		Roact.teardown(instance)
+		return saveState
 	end)
 end

@@ -9,17 +9,19 @@ local constants = require(Modules.constants)
 local function Input(props)
 	local len = utf8.len(props.text)
 	return Roact.createElement("TextBox", {
-		LayoutOrder = 0,
+		Size = props.Size,
+		Position = props.Position,
+		AnchorPoint = props.AnchorPoint,
+		LayoutOrder = props.LayoutOrder,
 		BackgroundColor3 = len and Color3.fromRGB(255, 255, 255) or Color3.fromRGB(255, 127, 127),
 		BorderColor3 = Color3.fromRGB(27, 42, 53),
 		BorderSizePixel = 0,
-		Size = UDim2.new(1, 0, 0, 50),
-		ZIndex = 2,
 		Font = Enum.Font.SourceSans,
 		Text = props.text,
 		TextColor3 = Color3.fromRGB(0, 0, 0),
 		TextSize = 36,
 		ClearTextOnFocus = false,
+		TextXAlignment = Enum.TextXAlignment.Left,
 
 		[Roact.Event.Changed] = function(rbx, prop)
 			if prop == 'Text' then
