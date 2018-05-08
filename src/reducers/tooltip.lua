@@ -1,9 +1,7 @@
-local setTooltip = require(script.Parent.Parent.actions.setTooltip)
-
 return function(state, action)
 	state = state or nil
 
-	if action.type == setTooltip.name then
+	if action.type == 'setTooltip' then
 		return action.text
 	end
 

@@ -1,7 +1,8 @@
-local action = require(script.Parent.Parent.action)
-
-return action("select", function(what)
+local function select(what)
 	return {
+		type = 'select',
 		what = what,
 	}
-end)
+end
+
+return select

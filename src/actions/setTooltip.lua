@@ -1,7 +1,8 @@
-local action = require(script.Parent.Parent.action)
-
-return action("setTooltip", function(text)
+local function setTooltip(text)
 	return {
+		type = 'setTooltip',
 		text = text,
 	}
-end)
+end
+
+return setTooltip

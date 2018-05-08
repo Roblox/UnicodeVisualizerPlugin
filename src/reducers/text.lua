@@ -1,9 +1,7 @@
-local setText = require(script.Parent.Parent.actions.setText)
-
 return function(state, action)
 	state = state or ""
 
-	if action.type == setText.name then
+	if action.type == 'setText' then
 		return action.text
 	end
 

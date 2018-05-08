@@ -1,8 +1,9 @@
-local action = require(script.Parent.Parent.action)
-
-return action("setText", function(text, confirm)
+local function setText(text, confirm)
 	return {
+		type = 'setText',
 		text = text,
 		confirm = confirm or false,
 	}
-end)
+end
+
+return setText

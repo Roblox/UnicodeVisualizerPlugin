@@ -1,9 +1,7 @@
-local setText = require(script.Parent.Parent.actions.setText)
-
 return function(state, action)
 	state = state or {}
 
-	if action.type == setText.name and action.confirm then
+	if action.type == 'setText' and action.confirm then
 		local new = {}
 		new[1] = action.text
 		for i = 1, math.min(#state, 9) do

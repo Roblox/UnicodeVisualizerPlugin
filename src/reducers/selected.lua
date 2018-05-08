@@ -1,9 +1,7 @@
-local select = require(script.Parent.Parent.actions.select)
-
 return function(state, action)
 	state = state or nil
 
-	if action.type == select.name then
+	if action.type == 'select' then
 		return action.what
 	end
 

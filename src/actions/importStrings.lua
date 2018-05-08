@@ -1,7 +1,8 @@
-local action = require(script.Parent.Parent.action)
-
-return action("importStrings", function(strings)
+local function importStrings(strings)
 	return {
+		type = 'importStrings',
 		strings = strings,
 	}
-end)
+end
+
+return importStrings
