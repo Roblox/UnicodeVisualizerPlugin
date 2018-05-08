@@ -95,7 +95,7 @@ function PluginFacade:_load(savedState)
 	end
 end
 
-function PluginFacade:_reload()
+function PluginFacade:_doReload()
     local saveState
 	if self._beforeUnload then
 		saveState = self._beforeUnload()
@@ -105,6 +105,17 @@ function PluginFacade:_reload()
 	currentRoot = source:Clone()
 
 	self:_load(saveState)
+end
+
+function PluginFacade:_reload()
+	-- debounce multiple events so we don't hang Studio when many files change
+	if not self._reloading then
+		self._reloading = true
+		spawn(function()
+			self._reloading = false
+			self:_doReload()
+		end)
+	end
 end
 
 function PluginFacade:_watch(instance)
