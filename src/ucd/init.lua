@@ -3,12 +3,15 @@ UCD.__index = UCD
 
 UCD.cache = {}
 
-function UCD.new(name)
+function UCD.new(name, heartbeat)
 	if UCD.cache[name] then
 		return UCD.cache[name]
 	end
 	local self = setmetatable({}, UCD)
+
 	self.file = require(script:FindFirstChild(name) or error("No such UCD file exists: "..tostring(name)))
+	heartbeat()
+
 	self.properties = {}
 
 	local lineno = 1
@@ -63,19 +66,23 @@ function UCD.new(name)
 				end
 			end
 			lineno = lineno + 1
+			heartbeat()
 		end
 	end
 
 	for prop,data in pairs(self.properties) do
 		table.sort(data, function(a,b) return a.last < b.last end)
+		heartbeat()
 	end
+
+	heartbeat()
 
 	UCD.cache[name] = self
 	return self
 end
 
 -- returns an array of properties
-function UCD:Lookup(code)
+function UCD:Lookup(code, heartbeat)
 	assert(type(code) == 'number')
 	local props = {}
 	local datas = {}
@@ -94,7 +101,11 @@ function UCD:Lookup(code)
 			props[#props+1] = prop
 			datas[#datas+1] = data[min].data
 		end
+		heartbeat()
 	end
+
+	heartbeat()
+	
 	return props, datas
 end
 

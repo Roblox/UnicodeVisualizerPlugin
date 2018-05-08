@@ -25,7 +25,7 @@ return function(plugin, initialState)
 	pluginGui.Title = "Unicode Visualizer"
 	pluginGui.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
 
-	local store = Rodux.Store.new(reducer, initialState)
+	local store = Rodux.Store.new(reducer, initialState, { Rodux.thunkMiddleware })
 
 	local element = Roact.createElement(RoactRodux.StoreProvider, {
 		store = store,
