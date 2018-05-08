@@ -101,6 +101,9 @@ local function Data(props)
 		Size = props.Size,
 		CanvasSize = UDim2.new(0, 0, 0, (#str + 1) * (constants.ROW + constants.PAD) + 2 * constants.MARGIN),
 		VerticalScrollBarInset = Enum.ScrollBarInset.Always,
+		ScrollBarThickness = 4,
+		BottomImage = 'rbxasset://textures/ui/Scroll/scroll-middle.png',
+		TopImage = 'rbxasset://textures/ui/Scroll/scroll-middle.png',
 	}, children)
 end
 

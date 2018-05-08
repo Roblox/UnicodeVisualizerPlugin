@@ -18,8 +18,8 @@ local function InfoPage(props)
 		PaddingTop = UDim.new(0, 5),
 	})
 
-	-- padding etc
-	local textWidth = constants.PANEL_WIDTH - 5
+	-- padding + scrollbar
+	local textWidth = constants.PANEL_WIDTH - 5 - 4
 	local textFrame = Vector2.new(textWidth, 10000)
 
 	local style = constants.InfoBox
@@ -142,6 +142,10 @@ local function InfoPage(props)
 		Size = props.Size,
 		CanvasSize = UDim2.new(0, 0, 0, height + 10),
 		BorderSizePixel = 0,
+		ScrollBarThickness = 4,
+		VerticalScrollBarInset = Enum.ScrollBarInset.Always,
+		BottomImage = 'rbxasset://textures/ui/Scroll/scroll-middle.png',
+		TopImage = 'rbxasset://textures/ui/Scroll/scroll-middle.png',
 	}, children)
 end
 
