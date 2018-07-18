@@ -3,9 +3,6 @@ local TextService = game:GetService("TextService")
 local Modules = script.Parent.Parent
 
 local Roact = require(Modules.Roact)
-local RoactRodux = require(Modules.RoactRodux)
-local setText = require(Modules.actions.setText)
-
 local constants = require(Modules.constants)
 
 local function InfoPage(props)

@@ -3,7 +3,6 @@ local Modules = script.Parent.Parent
 local Roact = require(Modules.Roact)
 local RoactRodux = require(Modules.RoactRodux)
 
-local constants = require(Modules.constants)
 local Input = require(Modules.components.Input)
 local Data = require(Modules.components.Data)
 local Info = require(Modules.components.Info)

@@ -5,9 +5,7 @@ local RoactRodux = require(Modules.RoactRodux)
 local setText = require(Modules.actions.setText)
 local constants = require(Modules.constants)
 
-local PickerMenu = Roact.Component:extend("PickerMenu")
-
-function Header(props)
+local function Header(props)
 	return Roact.createElement("TextLabel", {
 		Size = UDim2.new(1, 0, 0, 20),
 		LayoutOrder = props.LayoutOrder,
@@ -21,7 +19,7 @@ function Header(props)
 	})
 end
 
-function Entry(props)
+local function Entry(props)
 	return Roact.createElement("TextButton", {
 		Size = UDim2.new(1, 0, 0, 20),
 		LayoutOrder = props.LayoutOrder,
@@ -38,6 +36,8 @@ function Entry(props)
 		end,
 	})
 end
+
+local PickerMenu = Roact.Component:extend("PickerMenu")
 
 function PickerMenu:render()
 	local props = self.props

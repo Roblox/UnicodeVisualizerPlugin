@@ -28,11 +28,14 @@ local function Row(props)
 		tooltip = "Invalid UTF-8"
 	end
 
+	local y = props.y
+	local pos = constants.YOFF + (y - 2) * constants.ROW + (y - 1) * constants.PAD - constants.HALFPAD + constants.MARGIN
+
 	return Roact.createElement("Frame", {
 		BackgroundColor3 = Color3.fromRGB(127, 127, 127),
 		BackgroundTransparency = props.y % 2 == 0 and 0.75 or 1.0,
 
-		Position = UDim2.new(0, 0, 0, constants.YOFF + (props.y - 2) * constants.ROW + (props.y - 1) * constants.PAD - constants.HALFPAD + constants.MARGIN),
+		Position = UDim2.new(0, 0, 0, pos),
 		Size = UDim2.new(1, 0, 0, constants.ROW + constants.HALFPAD*2),
 	}, {
 		Offset = Roact.createElement(Label, {

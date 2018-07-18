@@ -65,7 +65,6 @@ local function Data(props)
 		local span = spans[i]
 		local start = spanstarts[i]
 
-		local len = utf8.len(span)
 		for p,code in utf8.codes(span) do
 			local char = utf8.char(code)
 			children[#children+1] = Roact.createElement(Label, {

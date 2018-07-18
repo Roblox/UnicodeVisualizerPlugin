@@ -4,8 +4,6 @@ local Roact = require(Modules.Roact)
 local RoactRodux = require(Modules.RoactRodux)
 local setText = require(Modules.actions.setText)
 
-local constants = require(Modules.constants)
-
 local function Input(props)
 	local len = utf8.len(props.text)
 	return Roact.createElement("TextBox", {

@@ -1,7 +1,6 @@
 local Modules = script.Parent.Parent
 
 local Roact = require(Modules.Roact)
-local RoactRodux = require(Modules.RoactRodux)
 
 local MainFrame = require(Modules.components.MainFrame)
 local Tooltip = require(Modules.components.Tooltip)

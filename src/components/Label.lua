@@ -12,7 +12,11 @@ function Label:render()
 	local props = self.props
 	local style = constants.styles[props.style] or error("Style does not exist: "..tostring(props.style))
 
-	local selected = props.selectable and props.selected and props.selectable.type == props.selected.type and props.selectable.id == props.selected.id
+	local selected =
+		props.selectable and
+		props.selected and
+		props.selectable.type == props.selected.type and
+		props.selectable.id == props.selected.id
 	local selectedColor = Color3.fromRGB(200, 200, 200)
 
 	local sizes = {
@@ -31,6 +35,12 @@ function Label:render()
 	xs[#xs+1] = UDim.new(0, x)
 	sizes[#sizes+1] = UDim.new(1, -xs[#xs].Offset - constants.MARGIN)
 
+	local pos = constants.HALFPAD
+	local y = props.y
+	if y then
+		pos = constants.YOFF + (y - 2) * constants.ROW + (y - 1) * constants.PAD + constants.MARGIN
+	end
+
 	local class = props.selectable and "TextButton" or "TextLabel"
 	return Roact.createElement(class, {
 		Text = props.text,
@@ -39,7 +49,11 @@ function Label:render()
 		TextScaled = true,
 		TextXAlignment = style.TextXAlignment or Enum.TextXAlignment.Center,
 		TextYAlignment = style.TextYAlignment or Enum.TextYAlignment.Center,
-		BackgroundColor3 = selected and selectedColor or props.BackgroundColor3 or style.BackgroundColor3 or Color3.fromRGB(255, 255, 255),
+		BackgroundColor3 =
+			selected and selectedColor or
+			props.BackgroundColor3 or
+			style.BackgroundColor3 or
+			Color3.fromRGB(255, 255, 255),
 		BackgroundTransparency = style.BackgroundTransparency or 0.15,
 		BorderColor3 = Color3.fromRGB(0, 0, 0),
 		BorderSizePixel = (selected or self.state.hover) and 3 or 1,
@@ -48,7 +62,7 @@ function Label:render()
 
 		Position = props.Position or UDim2.new(
 			xs[props.x],
-			UDim.new(0, props.y and constants.YOFF + (props.y - 2) * constants.ROW + (props.y - 1) * constants.PAD + constants.MARGIN or constants.HALFPAD)
+			UDim.new(0, pos)
 		),
 		Size = props.Size or UDim2.new(
 			sizes[props.x],

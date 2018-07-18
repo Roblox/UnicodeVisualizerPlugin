@@ -4,12 +4,16 @@ stds.roblox = {
 			other_fields = true,
 		},
 
+		-- Roblox libraries
+		"utf8",
+
 		-- Roblox globals
 		"script",
 
 		-- Extra functions
 		"tick", "warn", "spawn",
 		"wait", "settings",
+		"typeof",
 
 		-- Types
 		"Vector2", "Vector3",
@@ -19,6 +23,8 @@ stds.roblox = {
 		"CFrame",
 		"Enum",
 		"Instance",
+		"TweenInfo",
+		"DockWidgetPluginGuiInfo",
 	}
 }
 
@@ -39,6 +45,7 @@ stds.plugin = {
 
 ignore = {
 	"212", -- unused arguments
+	"411", -- redefining local variable
 	"421", -- shadowing local variable
 	"422", -- shadowing argument
 	"431", -- shadowing upvalue

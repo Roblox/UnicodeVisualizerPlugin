@@ -97,7 +97,7 @@ local function select(selected)
 					text = tostring(comment),
 				}
 			end
-	
+
 			if #props > 0 or #scripts > 0 or #blocks > 0 or #eaws > 0 or #unicodeProps > 0 then
 				markup[#markup+1] = {
 					type = 'Header',
@@ -148,7 +148,7 @@ local function select(selected)
 				text = 'UTF-8',
 			}
 			local charData = {}
-			for i, byte in pairs{char:byte(1, -1)} do
+			for _, byte in pairs{char:byte(1, -1)} do
 				charData[#charData + 1] = string.format("%02X", byte)
 			end
 			markup[#markup+1] = {
@@ -162,7 +162,6 @@ local function select(selected)
 			if code <= 0xD7FF or code >= 0xE000 and code <= 0xFFFF then
 				utf16 = { string.format("%04X", code) }
 			elseif code > 0xFFFF then
-				local sub = code - 0x10000
 				local low = code % 0x400
 				local high = math.floor(code / 0x400)
 				utf16 = {

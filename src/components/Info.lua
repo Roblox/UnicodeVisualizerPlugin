@@ -4,16 +4,12 @@ local Modules = script.Parent.Parent
 
 local Roact = require(Modules.Roact)
 local RoactRodux = require(Modules.RoactRodux)
-local setText = require(Modules.actions.setText)
 
-local constants = require(Modules.constants)
 local InfoPage = require(Modules.components.InfoPage)
-local UCD = require(Modules.ucd)
 
 local spinnerTween = TweenInfo.new(1.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut, -1)
 
 local function Info(props)
-	local selected = props.selected
 	if props.selectionInfo then
 		return Roact.createElement(InfoPage, {
 			nodes = props.selectionInfo,
