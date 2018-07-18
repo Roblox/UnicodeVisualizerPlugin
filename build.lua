@@ -20,7 +20,7 @@ for _,name in pairs(files) do
 	local num = math.ceil(#contents / limit);
 	if num == 1 then
 		print("Below max size")
-		local out = io.open(string.format("src/ucd/%s.lua", name), 'w')
+		local out = io.open(string.format("src/Data/%s.lua", name), 'w')
 		out:write(head.."return [[\n")
 		out:write(contents)
 		out:write("]]")
@@ -40,7 +40,7 @@ for _,name in pairs(files) do
 					print("wrote file "..i)
 				end
 				i = i + 1
-				out = io.open(string.format("src/ucd/%s%i.lua", name, i), 'w')
+				out = io.open(string.format("src/Data/%s%i.lua", name, i), 'w')
 				local str = head..'return [[\n'
 				out:write(str)
 				length = #str
@@ -52,7 +52,7 @@ for _,name in pairs(files) do
 		out:flush()
 		out:close()
 		print("wrote file "..i)
-		local out = io.open(string.format("src/ucd/%s.lua", name), 'w')
+		local out = io.open(string.format("src/Data/%s.lua", name), 'w')
 		out:write(head.."return {\n")
 		for j = 1, i do
 			out:write(string.format("	require(script.Parent.%s%i),\n", name, j))

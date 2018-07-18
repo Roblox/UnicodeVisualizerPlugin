@@ -4,7 +4,7 @@
 	"partitions": {
 		"plugin": {
 			"path": "src",
-			"target": "ReplicatedStorage.GraphemeVisualizer"
+			"target": "ReplicatedStorage.GraphemeVisualizer.Plugin"
 		},
 		"rodux": {
 			"path": "Rodux/lib",

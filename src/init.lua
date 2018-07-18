@@ -7,9 +7,9 @@ return function(plugin, initialState)
 	local Rodux = require(Modules.Rodux)
 	local RoactRodux = require(Modules.RoactRodux)
 
-	local App = require(script.Parent.components.App)
-	local reducer = require(script.Parent.reducers.root)
-	local importStrings = require(script.Parent.actions.importStrings)
+	local App = require(script.Components.App)
+	local reducer = require(script.reducer)
+	local importStrings = require(script.Actions.importStrings)
 
 	local toolbar = plugin:toolbar("Unicode")
 

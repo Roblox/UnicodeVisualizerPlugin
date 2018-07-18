@@ -1,4 +1,4 @@
-return function(state, action)
+local function selected(state, action)
 	state = state or nil
 
 	if action.type == 'setSelection' then
@@ -7,3 +7,5 @@ return function(state, action)
 
 	return state
 end
+
+return selected

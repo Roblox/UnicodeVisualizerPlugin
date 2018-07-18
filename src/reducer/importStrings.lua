@@ -1,4 +1,4 @@
-return function(state, action)
+local function importStrings(state, action)
 	state = state or {}
 
 	if action.type == 'importStrings' then
@@ -7,3 +7,5 @@ return function(state, action)
 
 	return state
 end
+
+return importStrings

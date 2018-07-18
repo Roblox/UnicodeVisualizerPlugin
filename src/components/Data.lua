@@ -1,12 +1,11 @@
-local Modules = script.Parent.Parent
+local Modules = script.Parent.Parent.Parent
 
 local Roact = require(Modules.Roact)
 local RoactRodux = require(Modules.RoactRodux)
-local Utf8 = require(Modules.Utf8)
-
-local constants = require(Modules.constants)
-local Label = require(Modules.components.Label)
-local Row = require(Modules.components.Row)
+local Utf8 = require(Modules.Plugin.Utf8)
+local constants = require(Modules.Plugin.Constants)
+local Label = require(Modules.Plugin.Components.Label)
+local Row = require(Modules.Plugin.Components.Row)
 
 local function Data(props)
 	local children = {}

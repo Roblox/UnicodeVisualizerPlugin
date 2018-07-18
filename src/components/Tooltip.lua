@@ -1,4 +1,4 @@
-local Modules = script.Parent.Parent
+local Modules = script.Parent.Parent.Parent
 
 local Roact = require(Modules.Roact)
 local RoactRodux = require(Modules.RoactRodux)

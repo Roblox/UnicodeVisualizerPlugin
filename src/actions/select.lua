@@ -1,11 +1,9 @@
 local RunService = game:GetService("RunService")
 
-local Modules = script.Parent.Parent
-
-local UCD = require(Modules.ucd)
-
-local setSelection = require(script.Parent.setSelection)
-local setSelectionInfo = require(script.Parent.setSelectionInfo)
+local Modules = script.Parent.Parent.Parent
+local Data = require(Modules.Plugin.Data)
+local setSelection = require(Modules.Plugin.Actions.setSelection)
+local setSelectionInfo = require(Modules.Plugin.Actions.setSelectionInfo)
 
 local function select(selected)
 	return function(store)
@@ -21,11 +19,11 @@ local function select(selected)
 				end
 			end
 
-			local propsTable = UCD.new("PropList", heartbeat)
-			local scriptTable = UCD.new("Scripts", heartbeat)
-			local blocksTable = UCD.new("Blocks", heartbeat)
-			local eawTable = UCD.new("EastAsianWidth", heartbeat)
-			local unicodeTable = UCD.new("UnicodeData", heartbeat)
+			local propsTable = Data.new("PropList", heartbeat)
+			local scriptTable = Data.new("Scripts", heartbeat)
+			local blocksTable = Data.new("Blocks", heartbeat)
+			local eawTable = Data.new("EastAsianWidth", heartbeat)
+			local unicodeTable = Data.new("UnicodeData", heartbeat)
 
 			local props = propsTable:Lookup(selected.code, heartbeat)
 			local scripts = scriptTable:Lookup(selected.code, heartbeat)

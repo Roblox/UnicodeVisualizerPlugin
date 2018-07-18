@@ -1,8 +1,8 @@
-local Modules = script.Parent.Parent
+local Modules = script.Parent.Parent.Parent
 
 local Roact = require(Modules.Roact)
 local RoactRodux = require(Modules.RoactRodux)
-local setText = require(Modules.actions.setText)
+local setText = require(Modules.Plugin.Actions.setText)
 
 local function Input(props)
 	local len = utf8.len(props.text)

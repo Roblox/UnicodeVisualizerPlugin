@@ -4,8 +4,8 @@ if not plugin then
 end
 
 -- currentRoot will not be the same as source
-local source = script.Parent
-local currentRoot = script.Parent
+local source = script.Parent.Parent
+local currentRoot = script.Parent.Parent
 
 script.Disabled = true
 

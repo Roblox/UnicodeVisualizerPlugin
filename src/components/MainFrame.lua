@@ -1,12 +1,12 @@
-local Modules = script.Parent.Parent
+local Modules = script.Parent.Parent.Parent
 
 local Roact = require(Modules.Roact)
 local RoactRodux = require(Modules.RoactRodux)
 
-local Input = require(Modules.components.Input)
-local Data = require(Modules.components.Data)
-local Info = require(Modules.components.Info)
-local PickerMenu = require(Modules.components.PickerMenu)
+local Input = require(Modules.Plugin.Components.Input)
+local Data = require(Modules.Plugin.Components.Data)
+local Info = require(Modules.Plugin.Components.Info)
+local PickerMenu = require(Modules.Plugin.Components.PickerMenu)
 
 local function MainFrame(props)
 	return Roact.createElement("Frame", {

@@ -1,4 +1,4 @@
-return function(state, selected, action)
+local function selectionInfo(state, selected, action)
 	state = state or nil
 
 	if action.type == 'setSelectionInfo' and action.of == selected then
@@ -7,3 +7,5 @@ return function(state, selected, action)
 
 	return state
 end
+
+return selectionInfo

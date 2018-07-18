@@ -1,9 +1,8 @@
-local Modules = script.Parent.Parent
+local Modules = script.Parent.Parent.Parent
 
 local Roact = require(Modules.Roact)
-
-local MainFrame = require(Modules.components.MainFrame)
-local Tooltip = require(Modules.components.Tooltip)
+local MainFrame = require(Modules.Plugin.Components.MainFrame)
+local Tooltip = require(Modules.Plugin.Components.Tooltip)
 
 local function App(props)
 	return Roact.createElement("Folder", nil, {

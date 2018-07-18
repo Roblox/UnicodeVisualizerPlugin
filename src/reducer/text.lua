@@ -1,4 +1,4 @@
-return function(state, action)
+local function text(state, action)
 	state = state or ""
 
 	if action.type == 'setText' then
@@ -7,3 +7,5 @@ return function(state, action)
 
 	return state
 end
+
+return text

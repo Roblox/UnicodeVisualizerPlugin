@@ -1,9 +1,9 @@
-local Modules = script.Parent.Parent
+local Modules = script.Parent.Parent.Parent
 
 local Roact = require(Modules.Roact)
-local constants = require(Modules.constants)
-local Label = require(Modules.components.Label)
-local CodeunitClass = require(Modules.Utf8).CodeunitClass
+local constants = require(Modules.Plugin.Constants)
+local Label = require(Modules.Plugin.Components.Label)
+local CodeunitClass = require(Modules.Plugin.Utf8).CodeunitClass
 
 local function Row(props)
 	local color

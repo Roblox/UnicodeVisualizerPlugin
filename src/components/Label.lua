@@ -1,10 +1,10 @@
-local Modules = script.Parent.Parent
+local Modules = script.Parent.Parent.Parent
 
 local Roact = require(Modules.Roact)
 local RoactRodux = require(Modules.RoactRodux)
-local constants = require(Modules.constants)
-local select = require(Modules.actions.select)
-local setTooltip = require(Modules.actions.setTooltip)
+local constants = require(Modules.Plugin.Constants)
+local select = require(Modules.Plugin.Actions.select)
+local setTooltip = require(Modules.Plugin.Actions.setTooltip)
 
 local Label = Roact.Component:extend("Label")
 

@@ -1,9 +1,9 @@
 local TextService = game:GetService("TextService")
 
-local Modules = script.Parent.Parent
+local Modules = script.Parent.Parent.Parent
 
 local Roact = require(Modules.Roact)
-local constants = require(Modules.constants)
+local constants = require(Modules.Plugin.Constants)
 
 local function InfoPage(props)
 	local children = {}

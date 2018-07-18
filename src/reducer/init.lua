@@ -1,11 +1,11 @@
-local text = require(script.Parent.text)
-local selected = require(script.Parent.selected)
-local selectionInfo = require(script.Parent.selectionInfo)
-local tooltip = require(script.Parent.tooltip)
-local recentlyUsed = require(script.Parent.recentlyUsed)
-local importStrings = require(script.Parent.importStrings)
+local text = require(script.text)
+local selected = require(script.selected)
+local selectionInfo = require(script.selectionInfo)
+local tooltip = require(script.tooltip)
+local recentlyUsed = require(script.recentlyUsed)
+local importStrings = require(script.importStrings)
 
-return function(state, action)
+local function reducer(state, action)
 	state = state or {}
 
 	return {
@@ -17,3 +17,5 @@ return function(state, action)
 		importStrings = importStrings(state.importStrings, action),
 	}
 end
+
+return reducer

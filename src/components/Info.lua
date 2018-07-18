@@ -1,11 +1,9 @@
 local TweenService = game:GetService("TweenService")
 
-local Modules = script.Parent.Parent
-
+local Modules = script.Parent.Parent.Parent
 local Roact = require(Modules.Roact)
 local RoactRodux = require(Modules.RoactRodux)
-
-local InfoPage = require(Modules.components.InfoPage)
+local InfoPage = require(Modules.Plugin.Components.InfoPage)
 
 local spinnerTween = TweenInfo.new(1.5, Enum.EasingStyle.Quad, Enum.EasingDirection.InOut, -1)
 

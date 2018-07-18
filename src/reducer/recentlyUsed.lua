@@ -1,4 +1,4 @@
-return function(state, action)
+local function recentlyUsed(state, action)
 	state = state or {}
 
 	if action.type == 'setText' and action.confirm then
@@ -14,3 +14,5 @@ return function(state, action)
 
 	return state
 end
+
+return recentlyUsed

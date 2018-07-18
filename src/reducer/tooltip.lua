@@ -1,4 +1,4 @@
-return function(state, action)
+local function tooltip(state, action)
 	state = state or nil
 
 	if action.type == 'setTooltip' then
@@ -7,3 +7,5 @@ return function(state, action)
 
 	return state
 end
+
+return tooltip
