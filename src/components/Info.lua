@@ -42,13 +42,13 @@ local function Info(props)
 	end
 end
 
-Info = RoactRodux.connect(function(store)
-	local state = store:getState()
-
+local function mapStateToProps(state)
 	return {
 		selected = state.selected,
 		selectionInfo = state.selectionInfo,
 	}
-end)(Info)
+end
+
+Info = RoactRodux.connect(mapStateToProps)(Info)
 
 return Info

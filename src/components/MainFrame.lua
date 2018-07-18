@@ -49,12 +49,12 @@ local function MainFrame(props)
 	})
 end
 
-MainFrame = RoactRodux.connect(function(store)
-	local state = store:getState()
-
+local function mapStateToProps(state)
 	return {
 		selected = state.selected,
 	}
-end)(MainFrame)
+end
+
+MainFrame = RoactRodux.connect(mapStateToProps)(MainFrame)
 
 return MainFrame

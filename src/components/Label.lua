@@ -102,18 +102,23 @@ function Label:init()
 	}
 end
 
-Label = RoactRodux.connect(function(store)
-	local state = store:getState()
-
+local function mapStateToProps(state)
 	return {
 		selected = state.selected,
+	}
+end
+
+local function mapDispatchToProps(dispatch)
+	return {
 		select = function(selectable)
-			store:dispatch(select(selectable))
+			dispatch(select(selectable))
 		end,
 		setTooltip = function(tooltip)
-			store:dispatch(setTooltip(tooltip))
+			dispatch(setTooltip(tooltip))
 		end,
 	}
-end)(Label)
+end
+
+Label = RoactRodux.connect(mapStateToProps, mapDispatchToProps)(Label)
 
 return Label

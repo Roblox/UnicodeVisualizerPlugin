@@ -38,7 +38,7 @@ return function(plugin, initialState)
 		pluginGui.Enabled = not pluginGui.Enabled
 	end)
 
-	local instance = Roact.reify(element, pluginGui, "UnicodeVisualizer")
+	local instance = Roact.mount(element, pluginGui, "UnicodeVisualizer")
 
 	local changedConns = {}
 	local function disconnectSelectionChangedConns()
@@ -94,7 +94,7 @@ return function(plugin, initialState)
 	plugin:beforeUnload(function()
 		local saveState = store:getState()
 		connection:Disconnect()
-		Roact.teardown(instance)
+		Roact.unmount(instance)
 		disconnectSelectionChangedConns()
 		selectionChanged:Disconnect()
 		return saveState

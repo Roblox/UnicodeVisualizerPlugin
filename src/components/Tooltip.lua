@@ -23,12 +23,12 @@ local function Tooltip(props)
 	})
 end
 
-Tooltip = RoactRodux.connect(function(store)
-	local state = store:getState()
-
+local function mapStateToProps(state)
 	return {
 		tooltip = state.tooltip,
 	}
-end)(Tooltip)
+end
+
+Tooltip = RoactRodux.connect(mapStateToProps)(Tooltip)
 
 return Tooltip

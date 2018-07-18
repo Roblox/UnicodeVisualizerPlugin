@@ -41,15 +41,20 @@ local function Input(props)
 	})
 end
 
-Input = RoactRodux.connect(function(store)
-	local state = store:getState()
-
+local function mapStateToProps(state)
 	return {
 		text = state.text,
-		textChanged = function(text, confirm)
-			store:dispatch(setText(text, confirm))
-		end
 	}
-end)(Input)
+end
+
+local function mapDispatchToProps(dispatch)
+	return {
+		textChanged = function(text, confirm)
+			dispatch(setText(text, confirm))
+		end,
+	}
+end
+
+Input = RoactRodux.connect(mapStateToProps, mapDispatchToProps)(Input)
 
 return Input

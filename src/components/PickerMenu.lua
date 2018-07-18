@@ -142,16 +142,21 @@ function PickerMenu:init()
 	}
 end
 
-PickerMenu = RoactRodux.connect(function(store)
-	local state = store:getState()
-
+local function mapStateToProps(state)
 	return {
 		recentlyUsed = state.recentlyUsed,
 		importStrings = state.importStrings,
+	}
+end
+
+local function mapDispatchToProps(dispatch)
+	return {
 		setText = function(text)
-			store:dispatch(setText(text))
+			dispatch(setText(text))
 		end,
 	}
-end)(PickerMenu)
+end
+
+PickerMenu = RoactRodux.connect(mapStateToProps, mapDispatchToProps)(PickerMenu)
 
 return PickerMenu

@@ -75,12 +75,12 @@ local function Data(props)
 	}, children)
 end
 
-Data = RoactRodux.connect(function(store)
-	local state = store:getState()
-
+local function mapStateToProps(state)
 	return {
 		text = state.text,
 	}
-end)(Data)
+end
+
+Data = RoactRodux.connect(mapStateToProps)(Data)
 
 return Data
