@@ -3,24 +3,26 @@ local Modules = script.Parent.Parent
 local Roact = require(Modules.Roact)
 local constants = require(Modules.constants)
 local Label = require(Modules.components.Label)
+local CodeunitClass = require(Modules.Utf8).CodeunitClass
 
 local function Row(props)
-	local byte = props.byte
 	local color
 	local tooltip
-	if byte <= 0x7f then
+
+	local class = props.class
+	if class == CodeunitClass.Single then
 		color = constants.UTF1BYTE
 		tooltip = "Single-byte sequence"
-	elseif byte <= 0xBF then
+	elseif class == CodeunitClass.Continuation then
 		color = constants.UTFCONT
 		tooltip = "Continuation byte"
-	elseif byte <= 0xDF then
+	elseif class == CodeunitClass.Start2 then
 		color = constants.UTF2BYTE
 		tooltip = "2-byte sequence start"
-	elseif byte <= 0xEF then
+	elseif class == CodeunitClass.Start3 then
 		color = constants.UTF3BYTE
 		tooltip = "3-byte sequence start"
-	elseif byte <= 0xF7 then
+	elseif class == CodeunitClass.Start4 then
 		color = constants.UTF4BYTE
 		tooltip = "4-byte sequence start"
 	else
@@ -46,7 +48,7 @@ local function Row(props)
 		Byte = Roact.createElement(Label, {
 			x = 2,
 			style = 'Byte',
-			text = string.format("%02X", props.byte),
+			text = string.format("%02X", props.value),
 			BackgroundColor3 = color,
 			tooltip = tooltip,
 		})
