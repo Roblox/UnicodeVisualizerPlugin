@@ -1,5 +1,7 @@
 # Unicode Visualizer Plugin
 
+<https://www.roblox.com/library/1085102904/Unicode-Visualizer>
+
 A plugin to debug/visualize what's going on in a Unicode string. Shows
 code units, codepoints, and graphemes. You can click on codepoints to
 view detailed information about what they represent.
