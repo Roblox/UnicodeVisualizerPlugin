@@ -1,3 +1,5 @@
+This repository is no longer maintained and has been replaced with a web version, visit the new repository [here](https://github.com/tiffany352/unicode-visualizer-web) and the website [here](https://tiffnix.com/unicode/).
+
 # Unicode Visualizer Plugin
 
 <https://www.roblox.com/library/1085102904/Unicode-Visualizer>
